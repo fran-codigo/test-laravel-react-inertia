@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::get('voted-decisions', [DecisionController::class, 'votedDecisions']);
         Route::post('votes', [VoteController::class, 'store']);
         Route::delete('votes/{id}', [VoteController::class, 'destroy']);
+        Route::post('decisions/{id}/comments', [CommentController::class, 'store']);
     });
 });
 
