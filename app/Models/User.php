@@ -62,6 +62,12 @@ class User extends Authenticatable
         return $this->hasMany(Vote::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+        
+    }
+
     public function getDecisionsCountAttribute()
     {
         return $this->decisions()->count();

@@ -47,6 +47,12 @@ class Decision extends Model
         return $this->belongsTo(Option::class, 'final_option_id');
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+        
+    }
+
     public function getTimeRemainingAttribute()
     {
         if ($this->expires_at) {
