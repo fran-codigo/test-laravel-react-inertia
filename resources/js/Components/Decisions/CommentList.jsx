@@ -23,6 +23,41 @@ export default function CommentList({ decisionId }) {
         }
     };
 
+    const getInitials = (string) => {
+        return string ? string.substring(0, 2).toUpperCase() : "";
+    };
+
+    const getRelativeTime = (timestamp) => {
+        const now = new Date();
+        const date = new Date(timestamp);
+        const seconds = Math.floor((now - date) / 1000);
+
+        const intervals = {
+            año: 31536000,
+            mes: 2592000,
+            semana: 604800,
+            día: 86400,
+            hora: 3600,
+            minuto: 60,
+            segundo: 1,
+        };
+
+        for (const [name, secondsInInterval] of Object.entries(intervals)) {
+            const interval = Math.floor(seconds / secondsInInterval);
+
+            if (interval >= 1) {
+                if (interval === 1) {
+                    return `hace 1 ${name}`;
+                }
+                // Pluralizar
+                const plural = name === "mes" ? "meses" : `${name}s`;
+                return `hace ${interval} ${plural}`;
+            }
+        }
+
+        return "justo ahora";
+    };
+
     if (loading) {
         return (
             <AuthenticatedLayout>
@@ -36,14 +71,38 @@ export default function CommentList({ decisionId }) {
     if (comments.length === 0) {
         return (
             <div className="text-center py-12">
-                <p className="text-gray-500">Sin comentarios</p>
+                <p className="font-semibold text-blue-900 mb-1">
+                    No hay comentarios aún
+                </p>
             </div>
         );
     }
 
     return (
-        <div>
-            <h2>Comments for Decision {decisionId}</h2>
+        <div className="mt-5 bg-white border border-blue-200 rounded-lg p-4 mb-6">
+            <h3 className="font-semibold text-blue-900 mb-1">Comentarios</h3>
+            <div className="space-y-3">
+                {comments.map((comment) => (
+                    <div
+                        key={comment.id}
+                        className="bg-gray-50 rounded-lg p-3 flex"
+                    >
+                        <p className="bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center">
+                            {getInitials(comment.user?.name)}
+                        </p>
+
+                        <div className="ml-3">
+                            <p className="text-sm text-gray-600">
+                                {comment.content}
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1">
+                                 {comment.user?.name} {" "}
+                                {getRelativeTime(comment.created_at)}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
