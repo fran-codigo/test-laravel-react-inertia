@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, usePage } from '@inertiajs/react';
 import VoteOption from '@/Components/Decisions/VoteOption';
 import { ClockIcon, UserIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import CommentList from '@/Components/Decisions/CommentList';
 
 export default function Show({ id }) {
     const { auth } = usePage().props;
@@ -201,6 +202,8 @@ export default function Show({ id }) {
                             </div>
                         </div>
                     </div>
+
+                    <CommentList decisionId={decision.id} />
 
                     {decision.votes && decision.votes.length > 0 && (
                         <div className="mt-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
