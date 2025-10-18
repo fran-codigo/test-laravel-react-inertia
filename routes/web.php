@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DecisionController;
 use App\Http\Controllers\VoteController;
@@ -61,6 +62,9 @@ Route::middleware('auth')->group(function () {
 Route::prefix('api')->group(function () {
     Route::get('decisions', [DecisionController::class, 'index']);
     Route::get('decisions/{id}', [DecisionController::class, 'show']);
+    
+    // COMMENTS
+    Route::get('decisions/{id}/comments', [CommentController::class, 'index']);
 });
 
 require __DIR__.'/auth.php';
