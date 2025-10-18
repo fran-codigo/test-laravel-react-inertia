@@ -15,6 +15,7 @@ class CommentController extends Controller
         $decision = Decision::findOrFail($id);
         $comments = $decision->comments()
             ->with('decision', 'user')
+            ->orderBy('created_at', 'desc')
             ->paginate(20);
 
         return response()->json($comments);
