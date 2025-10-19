@@ -82,24 +82,26 @@ export default function CommentList({ decisionId, reloadComments }) {
 
     return (
         <div className="mt-5 bg-white border border-blue-200 rounded-lg p-4 mb-6">
-            <h3 className="font-semibold text-blue-900 mb-1">Comentarios ({totalComments})</h3>
+            <h3 className="font-semibold text-blue-900 mb-1">
+                Comentarios ({totalComments})
+            </h3>
             <div className="space-y-3">
                 {comments.map((comment) => (
                     <div
                         key={comment.id}
-                        className="bg-gray-50 rounded-lg p-3 flex"
+                        className="bg-gray-50 rounded-lg p-3 flex gap-2"
                     >
                         <p className="bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center">
                             {getInitials(comment.user?.name)}
                         </p>
 
-                        <div className="ml-3">
-                            <p className="text-sm text-gray-600">
-                                {comment.content}
-                            </p>
+                        <div className="flex-1">
                             <p className="text-xs text-gray-500 mt-1">
-                                 {comment.user?.name} {" "}
+                                {comment.user?.name}{" "}
                                 {getRelativeTime(comment.created_at)}
+                            </p>
+                            <p className="text-sm text-gray-600 ml-3 line-clamp-3">
+                                {comment.content}
                             </p>
                         </div>
                     </div>
