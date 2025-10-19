@@ -57,7 +57,6 @@ export default function CommentForm({ decisionId, onCommentAdded }) {
             }
         } catch (error) {
             console.log("Error creating comment:", error);
-            // setErrorMessage(error.response.data.message);
         }
     };
 
@@ -72,7 +71,7 @@ export default function CommentForm({ decisionId, onCommentAdded }) {
                         maxLength={maxChars}
                         value={data.content}
                         onChange={(e) => setData("content", e.target.value)}
-                        className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-20"
                     ></textarea>
                     <div
                         className={`text-sm text-right ${
