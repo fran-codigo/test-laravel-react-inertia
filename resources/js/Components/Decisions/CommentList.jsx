@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-export default function CommentList({ decisionId }) {
+export default function CommentList({ decisionId, reloadComments }) {
     const [comments, setComments] = useState([]);
+    const [totalComments, setTotalComments] = useState(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchComments();
-    }, [decisionId]);
+    }, [decisionId, reloadComments]);
 
     const fetchComments = async () => {
         try {
@@ -16,6 +17,7 @@ export default function CommentList({ decisionId }) {
             );
             const data = await response.json();
             setComments(data.data);
+            setTotalComments(data.total);
         } catch (error) {
             console.error("Error fetching comments:", error);
         } finally {
@@ -80,7 +82,7 @@ export default function CommentList({ decisionId }) {
 
     return (
         <div className="mt-5 bg-white border border-blue-200 rounded-lg p-4 mb-6">
-            <h3 className="font-semibold text-blue-900 mb-1">Comentarios</h3>
+            <h3 className="font-semibold text-blue-900 mb-1">Comentarios ({totalComments})</h3>
             <div className="space-y-3">
                 {comments.map((comment) => (
                     <div
